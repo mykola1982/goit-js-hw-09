@@ -5,29 +5,32 @@ const refs = {
 };
 let timerId = null;
 
-console.log(refs.startBtn);
-console.log(refs.stopBtn);
-console.log(refs.body);
-
 refs.startBtn.addEventListener('click', onClickStartBtn);
 refs.stopBtn.addEventListener('click', onClickStopBtn);
 
-refs.stopBtn.setAttribute('disabled', true);
+setDisabledAttOnStopBtn();
 
 function onClickStartBtn() {
-  console.log('я нажав старт');
-  refs.startBtn.setAttribute('disabled', true);
-  refs.stopBtn.removeAttribute('disabled');
+  refs.startBtn.disabled = true;
+  setDisabledAttOnStopBtn();
 
   timerId = setInterval(() => {
     refs.body.style.backgroundColor = getRandomHexColor();
   }, 1000);
 }
 function onClickStopBtn() {
-  console.log('я нажав стоп');
-  refs.startBtn.removeAttribute('disabled');
-  refs.stopBtn.setAttribute('disabled', true);
+  refs.startBtn.disabled = false;
+  setDisabledAttOnStopBtn();
+
   clearInterval(timerId);
+}
+
+function setDisabledAttOnStopBtn() {
+  refs.stopBtn.disabled = true;
+
+  if (refs.startBtn.disabled) {
+    refs.stopBtn.disabled = false;
+  }
 }
 
 function getRandomHexColor() {
