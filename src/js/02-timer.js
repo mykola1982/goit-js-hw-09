@@ -2,8 +2,6 @@ import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
-let chooseTime = 0;
-
 const btnStartRef = document.querySelector('[data-start]');
 const timerRef = document.querySelector('.timer');
 
