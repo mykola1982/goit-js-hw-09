@@ -12,7 +12,9 @@ const notifyOptions = {
 };
 
 btnStartRef.disabled = true;
-
+// _________________________
+let chooseDate = null;
+// ________________________
 const options = {
   enableTime: true,
   time_24hr: true,
@@ -27,11 +29,28 @@ const options = {
     }
     btnStartRef.disabled = false;
 
-    btnStartRef.addEventListener('click', () => {
-      timer.start(timerRef, selectedDates[0]);
-    });
+
+
+    chooseDate = selectedDates[0];
+
+
+
+    // btnStartRef.addEventListener('click', () => {
+    //   timer.start(timerRef, selectedDates[0]);
+    // });
   },
 };
+// ______________________________
+
+console.log(chooseDate);
+
+btnStartRef.addEventListener('click', () => {
+  timer.start(timerRef, chooseDate);
+});
+
+
+
+// ______________________________
 
 flatpickr('#datetime-picker', options);
 
@@ -40,6 +59,7 @@ const timer = {
   refs: {},
 
   start(rootSelector, deadline) {
+
     const delta = deadline.getTime() - Date.now();
     console.log(delta);
 
@@ -47,9 +67,12 @@ const timer = {
     this.intervalId = setInterval(() => {
       const ms = deadline.getTime() - Date.now();
 
+
       if (ms <= 1000) {
+
         clearInterval(this.intervalId);
       }
+
       const data = this.convertMs(ms);
       Object.entries(data).forEach(([name, value]) => {
         this.refs[name].textContent = this.addLeadingZero(value);
